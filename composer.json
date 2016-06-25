@@ -18,5 +18,6 @@
     "scripts": {
         "test": "vendor/bin/phpunit",
         "test-ci": "vendor/bin/phpunit --coverage-clover build/coverage.xml"
-    }
+    },
+    "version": "1.0.0"
 }
