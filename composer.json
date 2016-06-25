@@ -1,5 +1,5 @@
 {
-    "name": "tp/docker-compose",
+    "name": "tp/docker-composer",
     "autoload": {
         "psr-4": { "Docker\\": "src/Docker/" }
     },
