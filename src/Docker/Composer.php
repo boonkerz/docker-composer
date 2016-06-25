@@ -1,0 +1,138 @@
+<?php
+namespace Docker;
+
+
+use Docker\Composer\EnvVar;
+use Docker\Composer\Link;
+use Docker\Composer\Port;
+use Docker\Composer\Service;
+use MJS\TopSort\Implementations\GroupedStringSort;
+use Symfony\Component\Yaml\Exception\ParseException;
+use Symfony\Component\Yaml\Yaml;
+
+class Composer
+{
+    private $tree;
+
+    protected $version;
+
+    protected $services = [];
+
+    public function __construct($content)
+    {
+        if($content == '') {
+            throw new ParseException("No Content");
+        }
+
+        $this->tree = Yaml::parse($content);
+
+        $this->parse();
+    }
+
+    private function parse() {
+        if(!isset($this->tree['version']) || $this->tree['version'] != 2) {
+            throw new ParseException("No Content");
+        }
+
+        $this->version = $this->tree['version'];
+
+        foreach($this->tree['services'] as $name => $serviceArr) {
+            $this->parseService($name, $serviceArr);
+        }
+
+        $this->depResolve();
+    }
+
+    private function parseService($name, $serviceArr)
+    {
+        $service = new Service(strtolower($name));
+
+        if(isset($serviceArr['depends_on'])) {
+            foreach ($serviceArr['depends_on'] as $item) {
+                $service->addEdge($item);
+            }
+        }
+
+        if(isset($serviceArr['restart']) && $serviceArr['restart'] == 'always') {
+            $service->setRestart(Service::RESTART_ALWAYS);
+        }
+
+        if(isset($serviceArr['image'])) {
+            $service->setImage($serviceArr['image']);
+        }
+
+        if(isset($serviceArr['links'])) {
+            foreach ($serviceArr['links'] as $item) {
+                $link = explode(':', $item);
+                if(count($link) == 1) {
+                    $service->addLink(new Link($link[0], $link[0]));
+                    continue;
+                }
+                $service->addLink(new Link($link[0], $link[1]));
+            }
+        }
+
+        if(isset($serviceArr['ports'])) {
+            foreach ($serviceArr['ports'] as $item) {
+                if(strpos($item, "-") !== false) {
+                    continue;
+                }
+                $port = explode(':', $item);
+                if(count($port) == 1) {
+                    $service->addPort(new Port($port[0], $port[0]));
+                    continue;
+                }
+                $service->addPort(new Port($port[0], $port[1]));
+            }
+        }
+
+        if(isset($serviceArr['environment'])) {
+            foreach ($serviceArr['environment'] as $key => $item) {
+                if(strpos($item, '=') === false) {
+                    $service->addEnvVar(new EnvVar($key, $item));
+                    continue;
+                }
+                $item = explode("=", $item);
+                $service->addEnvVar(new EnvVar($item[0], $item[1]));
+            }
+        }
+
+        $this->services[] = $service;
+    }
+
+    private function depResolve() {
+
+        $sorter = new GroupedStringSort();
+
+        /** @var Service $service */
+        foreach($this->getServices() as $service) {
+            $sorter->add($service->getName(), $service->getName(), $service->getEdges());
+        }
+
+        $sortiert = $sorter->sort();
+
+        usort($this->services, function($key1, $key2) use ($sortiert) {
+            if((array_search($key1->getName(), $sortiert) > array_search($key2->getName(), $sortiert))) {
+                return 1;
+            }
+            return -1;
+        });
+
+    }
+
+    /**
+     * @return int
+     */
+    public function getVersion()
+    {
+        return $this->version;
+    }
+
+    /**
+     * @return \ArrayIterator
+     */
+    public function getServices()
+    {
+        return $this->services;
+    }
+}
