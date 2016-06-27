@@ -17,8 +17,8 @@ class Link
 
     public function __construct($host, $as)
     {
-        $this->host = $host;
-        $this->as = $as;
+        $this->setHost($host);
+        $this->setAs($as);
     }
 
     /**

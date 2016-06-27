@@ -18,8 +18,8 @@ class EnvVar
 
     public function __construct($name, $value)
     {
-        $this->name = $name;
-        $this->value = $value;
+        $this->setName($name);
+        $this->setValue($value);
     }
 
     /**

@@ -9,7 +9,7 @@
 namespace Docker\Composer;
 
 
-class Port
+class Volume
 {
     protected $source;
 
@@ -54,20 +54,16 @@ class Port
     }
 
     /**
-     * Is HTTP?
+     * Is Relativ?
      *
      * @return bool
      */
-    public function isHttp() {
-        return ($this->getDest() == '80');
+    public function isRelativ() {
+        return (
+            $this->getSource() == '.' ||
+            substr($this->getSource(), 0, 2) == './'
+        );
     }
-
-    /**
-     * Is HTTPS?
-     *
-     * @return bool
-     */
-    public function isHttps() {
-        return ($this->getDest() == '443');
-    }
+    
+    
 }

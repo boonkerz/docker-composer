@@ -30,6 +30,11 @@ class Service
     /**
      * @var array
      */
+    protected $volumes;
+
+    /**
+     * @var array
+     */
     protected $links;
 
     /**
@@ -47,6 +52,7 @@ class Service
         $this->links = new \ArrayIterator();
         $this->envVars = new \ArrayIterator();
         $this->ports = new \ArrayIterator();
+        $this->volumes = new \ArrayIterator();
     }
 
     /**
@@ -138,6 +144,14 @@ class Service
     }
 
     /**
+     * @param Volume $volume
+     */
+    public function addVolume($volume)
+    {
+        $this->volumes->append($volume);
+    }
+
+    /**
      * @param Port $port
      */
     public function addPort($port)
@@ -178,6 +192,17 @@ class Service
         return $temp;
     }
 
+    public function getVolumesAsArray()
+    {
+        $temp = [];
+        /** @var Volume $item */
+        foreach ($this->volumes as $item) {
+            $temp[$item->getSource()] = $item->getDest();
+        }
+
+        return $temp;
+    }
+
     /**
      * @return Int
      */
@@ -192,5 +217,13 @@ class Service
     public function setRestart($restart)
     {
         $this->restart = $restart;
+    }
+
+    /**
+     * @return array
+     */
+    public function getVolumes()
+    {
+        return $this->volumes;
     }
 }

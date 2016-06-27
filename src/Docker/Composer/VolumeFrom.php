@@ -9,7 +9,7 @@
 namespace Docker\Composer;
 
 
-class Port
+class VolumeFrom
 {
     protected $source;
 
@@ -17,8 +17,8 @@ class Port
 
     public function __construct($source, $dest)
     {
-        $this->setSource($source);
-        $this->setDest($dest);
+        $this->source = $source;
+        $this->dest = $dest;
     }
 
     /**
@@ -52,22 +52,5 @@ class Port
     {
         $this->source = $source;
     }
-
-    /**
-     * Is HTTP?
-     *
-     * @return bool
-     */
-    public function isHttp() {
-        return ($this->getDest() == '80');
-    }
-
-    /**
-     * Is HTTPS?
-     *
-     * @return bool
-     */
-    public function isHttps() {
-        return ($this->getDest() == '443');
-    }
+    
 }
