@@ -63,6 +63,10 @@ class Composer
             $service->setImage($serviceArr['image']);
         }
 
+        if(isset($serviceArr['mem_limit'])) {
+            $service->setMemory($serviceArr['mem_limit']);
+        }
+
         if(isset($serviceArr['links'])) {
             foreach ($serviceArr['links'] as $item) {
                 $link = explode(':', $item);

@@ -17,6 +17,9 @@ class Service
     /** @var string */
     protected $image;
 
+    /** @var string */
+    protected $memory;
+
     /**
      * @var array
      */
@@ -59,6 +62,7 @@ class Service
         $this->ports = new \ArrayIterator();
         $this->volumes = new \ArrayIterator();
         $this->volumesFrom = new \ArrayIterator();
+        $this->memory = '25m';
     }
 
     /**
@@ -258,5 +262,21 @@ class Service
     public function getVolumesFrom()
     {
         return $this->volumesFrom;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMemory()
+    {
+        return $this->memory;
+    }
+
+    /**
+     * @param string $memory
+     */
+    public function setMemory($memory)
+    {
+        $this->memory = $memory;
     }
 }

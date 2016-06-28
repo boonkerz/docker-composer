@@ -32,4 +32,21 @@ class WordpressTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(Composer\Service::RESTART_ALWAYS, $service->getRestart());
     }
 
+    public function testIfServiceReturnCorrectMemValue() {
+        $composer = new Composer(file_get_contents(__DIR__ . '/resources/file1.yml'));
+
+        /** @var Composer\Service $service */
+        $service = $composer->getServices()[0];
+
+        $this->assertEquals("20m", $service->getMemory());
+
+        $service = $composer->getServices()[1];
+
+        $this->assertEquals("100m", $service->getMemory());
+
+        $service = $composer->getServices()[2];
+
+        $this->assertEquals("25m", $service->getMemory());
+    }
+
 }
