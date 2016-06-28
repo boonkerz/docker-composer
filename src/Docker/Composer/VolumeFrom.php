@@ -11,14 +11,20 @@ namespace Docker\Composer;
 
 class VolumeFrom
 {
+    const READ_ONLY = 1;
+    const READ_WRITE = 2;
+
     protected $source;
 
     protected $dest;
 
-    public function __construct($source, $dest)
+    protected $mode;
+
+    public function __construct($source, $dest, $mode = self::READ_WRITE)
     {
         $this->source = $source;
         $this->dest = $dest;
+        $this->mode = $mode;
     }
 
     /**
@@ -52,5 +58,21 @@ class VolumeFrom
     {
         $this->source = $source;
     }
-    
+
+    /**
+     * @return int
+     */
+    public function getMode()
+    {
+        return $this->mode;
+    }
+
+    /**
+     * @param int $mode
+     */
+    public function setMode($mode)
+    {
+        $this->mode = $mode;
+    }
+
 }

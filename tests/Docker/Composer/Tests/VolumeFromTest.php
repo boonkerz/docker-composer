@@ -19,13 +19,12 @@ class VolumeFromTest extends \PHPUnit_Framework_TestCase
         /** @var Composer\Service $service */
         $service = $composer->getServices()[1];
 
-        $env = $service->getEnvVarsAsArray();
+        $volumes = $service->getVolumesFrom();
 
-        $this->assertArrayHasKey('WORDPRESS_DB_HOST', $env);
-        $this->assertArrayHasKey('WORDPRESS_DB_PASSWORD', $env);
+        $this->assertCount(1, $volumes);
 
-        $this->assertEquals('db:3306', $env['WORDPRESS_DB_HOST']);
-        $this->assertEquals('pass1', $env['WORDPRESS_DB_PASSWORD']);
+        $this->assertEquals('data', $volumes[0]->getSource());
+        $this->assertEquals('data', $volumes[0]->getDest());
 
     }
 
@@ -35,13 +34,9 @@ class VolumeFromTest extends \PHPUnit_Framework_TestCase
         /** @var Composer\Service $service */
         $service = $composer->getServices()[0];
 
-        $env = $service->getEnvVarsAsArray();
+        $volumes = $service->getVolumesFrom();
 
-        $this->assertArrayHasKey('MYSQL_ROOT_PASSWORD', $env);
-        $this->assertArrayHasKey('MYSQL_DATABASE', $env);
-
-        $this->assertEquals('pass1', $env['MYSQL_PASSWORD']);
-        $this->assertEquals('wordpress', $env['MYSQL_DATABASE']);
+        $this->assertCount(0, $volumes);
     }
 
 }

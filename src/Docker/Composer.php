@@ -7,6 +7,7 @@ use Docker\Composer\Link;
 use Docker\Composer\Port;
 use Docker\Composer\Service;
 use Docker\Composer\Volume;
+use Docker\Composer\VolumeFrom;
 use MJS\TopSort\Implementations\GroupedStringSort;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
@@ -95,6 +96,24 @@ class Composer
                     continue;
                 }
                 $service->addVolume(new Volume($volume[0], $volume[1]));
+            }
+        }
+
+        if(isset($serviceArr['volumes_from'])) {
+            foreach ($serviceArr['volumes_from'] as $item) {
+                $volume = explode(':', $item);
+                if(count($volume) == 3) {
+                    if($volume[3] == 'ro') {
+                        $service->addVolumeFrom(new VolumeFrom(strtolower($volume[0]), strtolower($volume[1]), VolumeFrom::READ_ONLY));
+                        continue;
+                    }
+                    $service->addVolumeFrom(new VolumeFrom(strtolower($volume[0]), strtolower($volume[1]), VolumeFrom::READ_WRITE));
+                    continue;
+                }else if(count($volume) == 2) {
+                    $service->addVolumeFrom(new VolumeFrom(strtolower($volume[0]), strtolower($volume[1])));
+                    continue;
+                }
+                $service->addVolumeFrom(new VolumeFrom(strtolower($volume[0]), strtolower($volume[0])));
             }
         }
 

@@ -4,6 +4,8 @@ services:
     depends_on:
       - db
     image: wordpress:latest
+    volumes_from:
+      - Data
     links:
       - db:db1
     ports:
@@ -23,3 +25,9 @@ services:
       MYSQL_DATABASE: wordpress
       MYSQL_USER: usr1
       MYSQL_PASSWORD: pass1
+
+  Data:
+    image: cogniteev/echo
+    command: echo 'Data Container for PSCShop'
+    volumes:
+      - ./data:/data
