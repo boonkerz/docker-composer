@@ -18,9 +18,11 @@ class WordpressTest extends \PHPUnit_Framework_TestCase
 
         $service = $composer->getServices();
 
-        $this->assertEquals("mysql:5.7", $service[0]->getImage());
+        $this->assertEquals("mysql", $service[0]->getImage());
+        $this->assertEquals("5.7", $service[0]->getTag());
 
-        $this->assertEquals("wordpress:latest", $service[1]->getImage());
+        $this->assertEquals("wordpress", $service[1]->getImage());
+        $this->assertEquals("latest", $service[1]->getTag());
     }
 
     public function testIfServiceIsCorrectRestart() {

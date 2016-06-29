@@ -18,7 +18,10 @@ class Service
     protected $image;
 
     /** @var string */
-    protected $memory;
+    protected $tag = 'latest';
+
+    /** @var string */
+    protected $memory = '25m';
 
     /**
      * @var array
@@ -62,7 +65,6 @@ class Service
         $this->ports = new \ArrayIterator();
         $this->volumes = new \ArrayIterator();
         $this->volumesFrom = new \ArrayIterator();
-        $this->memory = '25m';
     }
 
     /**
@@ -278,5 +280,21 @@ class Service
     public function setMemory($memory)
     {
         $this->memory = $memory;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTag()
+    {
+        return $this->tag;
+    }
+
+    /**
+     * @param string $tag
+     */
+    public function setTag($tag)
+    {
+        $this->tag = $tag;
     }
 }

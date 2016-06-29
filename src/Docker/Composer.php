@@ -60,7 +60,13 @@ class Composer
         }
 
         if(isset($serviceArr['image'])) {
-            $service->setImage($serviceArr['image']);
+            if(strpos($serviceArr['image'], ':') !== false) {
+                $image = explode(':', $serviceArr['image']);
+                $service->setImage($image[0]);
+                $service->setTag($image[1]);
+            }else{
+                $service->setImage($serviceArr['image']);
+            }
         }
 
         if(isset($serviceArr['mem_limit'])) {
