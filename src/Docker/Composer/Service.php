@@ -21,7 +21,7 @@ class Service
     protected $tag = 'latest';
 
     /** @var string */
-    protected $memory = '25m';
+    protected $memory = '100m';
 
     /**
      * @var array
