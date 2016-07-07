@@ -27,6 +27,15 @@ services:
       MYSQL_DATABASE: wordpress
       MYSQL_USER: usr1
       MYSQL_PASSWORD: pass1
+    commands:
+      create:
+        - mysql -uroot -pPassword -e "create database wordpress;"
+        - mysql -uroot -pPassword wordpress < /setup/database.sql
+        - mysql -uroot -pPassword wordpress < /setup/migrate_1.sql
+        - mysql -uroot -pPassword wordpress -e "DELETE FROM domain;"
+        - mysql -uroot -pPassword wordpress -e "INSERT INTO domain (shop_id,name,redirect) VALUE (1,'{domain}','');"
+      update:
+        - mysql -uroot -pPassword wordpress < /setup/migrate_1.sql
 
   Data:
     image: cogniteev/echo

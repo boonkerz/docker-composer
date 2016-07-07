@@ -53,6 +53,18 @@ class Service
      */
     protected $edges;
 
+    /**
+     * @var array
+     */
+    protected $createCommands;
+
+    /**
+     * @var array
+     */
+    protected $updateCommands;
+
+
+
     /** @var Int */
     protected $restart = self::RESTART_NONE;
 
@@ -65,6 +77,8 @@ class Service
         $this->ports = new \ArrayIterator();
         $this->volumes = new \ArrayIterator();
         $this->volumesFrom = new \ArrayIterator();
+        $this->createCommands = new \ArrayIterator();
+        $this->updateCommands = new \ArrayIterator();
     }
 
     /**
@@ -296,5 +310,37 @@ class Service
     public function setTag($tag)
     {
         $this->tag = $tag;
+    }
+
+    /**
+     * @return array
+     */
+    public function getCreateCommands()
+    {
+        return $this->createCommands;
+    }
+
+    /**
+     * @return array
+     */
+    public function getUpdateCommands()
+    {
+        return $this->updateCommands;
+    }
+
+    /**
+     * @param Command $command
+     */
+    public function addCreateCommand($command)
+    {
+        $this->createCommands->append($command);
+    }
+
+    /**
+     * @param Command $command
+     */
+    public function addUpdateCommand($command)
+    {
+        $this->updateCommands->append($command);
     }
 }

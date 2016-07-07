@@ -2,6 +2,7 @@
 namespace Docker;
 
 
+use Docker\Composer\Command;
 use Docker\Composer\EnvVar;
 use Docker\Composer\Link;
 use Docker\Composer\Port;
@@ -126,6 +127,21 @@ class Composer
                 $service->addVolumeFrom(new VolumeFrom(strtolower($volume[0]), strtolower($volume[0])));
             }
         }
+
+        if(isset($serviceArr['commands'])) {
+            if(isset($serviceArr['commands']['create'])) {
+                foreach ($serviceArr['commands']['create'] as $item) {
+                    $service->addCreateCommand(new Command($item));
+                }
+            }
+            if(isset($serviceArr['commands']['update'])) {
+                foreach ($serviceArr['commands']['update'] as $item) {
+                    $service->addUpdateCommand(new Command($item));
+                }
+            }
+        }
+        
+        
 
         if(isset($serviceArr['environment'])) {
             foreach ($serviceArr['environment'] as $key => $item) {
