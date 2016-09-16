@@ -105,8 +105,24 @@ class Composer
                 if(count($volume) == 1) {
                     $service->addVolume(new Volume($volume[0], $volume[0]));
                     continue;
+                }elseif(count($volume) == 2) {
+                    $service->addVolume(new Volume($volume[0], $volume[1]));
+                    continue;
                 }
-                $service->addVolume(new Volume($volume[0], $volume[1]));
+
+                $backup = false;
+
+                if(isset($volume[3])) {
+                    if($volume[3] == 'backup') {
+                        $backup = true;
+                    }
+                }
+                if($volume[2] == 'ro') {
+                    $service->addVolume(new Volume($volume[0], $volume[1], Volume::RO, $backup));
+                    continue;
+                }
+                $service->addVolume(new Volume($volume[0], $volume[1], Volume::RW, $backup));
+                continue;
             }
         }
 

@@ -21,6 +21,8 @@ services:
     mem_limit: 20m
     volumes:
       - "./.data/db:/var/lib/mysql"
+      - "./.data/ro:/testro:ro"
+      - "./.data/rw:/testrw:ro:backup"
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: wordpress
