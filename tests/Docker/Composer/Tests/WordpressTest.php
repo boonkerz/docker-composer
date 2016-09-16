@@ -59,6 +59,7 @@ class WordpressTest extends \PHPUnit_Framework_TestCase
 
         $createCommands = $service->getCreateCommands();
         $updateCommands = $service->getUpdateCommands();
+        $backupCommands = $service->getBackupCommands();
 
         $this->assertCount(5, $createCommands);
 
@@ -70,7 +71,11 @@ class WordpressTest extends \PHPUnit_Framework_TestCase
 
         $this->assertCount(1, $updateCommands);
 
-        $this->assertEquals("mysql -uroot -pPassword wordpress < /setup/migrate_1.sql", $createCommands[2]->getExec());
+        $this->assertEquals("mysql -uroot -pPassword wordpress < /setup/migrate_1.sql", $updateCommands[0]->getExec());
+
+        $this->assertCount(1, $backupCommands);
+
+        $this->assertEquals("mysqldump > test.sql", $backupCommands[0]->getExec());
 
     }
 

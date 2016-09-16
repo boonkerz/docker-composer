@@ -155,6 +155,11 @@ class Composer
                     $service->addUpdateCommand(new Command($item));
                 }
             }
+            if(isset($serviceArr['commands']['backup'])) {
+                foreach ($serviceArr['commands']['backup'] as $item) {
+                    $service->addBackupCommand(new Command($item));
+                }
+            }
         }
         
         

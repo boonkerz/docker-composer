@@ -63,7 +63,10 @@ class Service
      */
     protected $updateCommands;
 
-
+    /**
+     * @var array
+     */
+    protected $backupCommands;
 
     /** @var Int */
     protected $restart = self::RESTART_NONE;
@@ -79,6 +82,7 @@ class Service
         $this->volumesFrom = new \ArrayIterator();
         $this->createCommands = new \ArrayIterator();
         $this->updateCommands = new \ArrayIterator();
+        $this->backupCommands = new \ArrayIterator();
     }
 
     /**
@@ -342,5 +346,21 @@ class Service
     public function addUpdateCommand($command)
     {
         $this->updateCommands->append($command);
+    }
+
+    /**
+     * @return array
+     */
+    public function getBackupCommands()
+    {
+        return $this->backupCommands;
+    }
+
+    /**
+     * @param Command $command
+     */
+    public function addBackupCommand($command)
+    {
+        $this->backupCommands->append($command);
     }
 }

@@ -38,7 +38,8 @@ services:
         - mysql -uroot -pPassword wordpress -e "INSERT INTO domain (shop_id,name,redirect) VALUE (1,'{domain}','');"
       update:
         - mysql -uroot -pPassword wordpress < /setup/migrate_1.sql
-
+      backup:
+        - mysqldump > test.sql
   Data:
     image: cogniteev/echo
     command: echo 'Data Container for PSCShop'
