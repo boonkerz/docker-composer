@@ -23,7 +23,7 @@ class PortTest extends \PHPUnit_Framework_TestCase
 
         $this->assertcount(1, $env);
 
-        $this->assertEquals('80', $env['8000']);
+        $this->assertEquals('80', $env['80']);
 
     }
 

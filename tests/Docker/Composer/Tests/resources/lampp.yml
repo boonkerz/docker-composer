@@ -1,0 +1,47 @@
+version: "2"
+services:
+    mysql:
+        mem_limit: 500m
+        depends_on:
+            - data
+        image: git.thomas-peterson.de/psc/docker_mysql:latest
+        environment:
+            - MYSQL_ROOT_PASSWORD=Wichtig1
+        volumes_from:
+            - data
+        commands:
+            create:
+                - mysql -pWichtig1 -e "create database site;"
+            backup:
+                - mkdir -p /backup/mysql
+                - rm -R /backup/mysql/*
+                - mysqldump -pWichtig1 --databases site > /backup/mysql/mysqldump.sql
+    php:
+        image: php:fpm
+        depends_on:
+            - data
+        mem_limit: 500m
+        volumes_from:
+            - data
+        links:
+            - mysql:mysql
+    web:
+        image: nginx
+        mem_limit: 500m
+        depends_on:
+            - data
+        volumes_from:
+            - data
+        ports:
+            - "80:80"
+    data:
+        image: cogniteev/echo
+        command: echo 'Data/App Container'
+        volumes:
+            - ./mysql:/var/lib/mysql
+            - ./nginx/default:/etc/nginx/sites-available/default
+            - ./nginx/default:/etc/nginx/sites-enabled/default
+            - ./logs/nginx-error.log:/var/log/nginx/error.log
+            - ./logs/nginx-access.log:/var/log/nginx/access.log
+            - ./public:/usr/share/nginx/html:rw:backup
+            - ./backup:/backup:rw:backup
