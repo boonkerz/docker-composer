@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: thomas
- * Date: 25.06.16
- * Time: 20:51
+ * Date: 21.10.17
+ * Time: 01:15
  */
 
 namespace Docker\Composer;
@@ -11,100 +11,104 @@ namespace Docker\Composer;
 
 class Volume
 {
-    const RO = 1;
-    const RW = 2;
+    protected $name;
 
-    protected $source;
+    protected $driver = '';
 
-    protected $dest;
+    protected $driverOpts = [];
 
-    protected $mode = Volume::RW;
+    protected $external = false;
 
-    protected $backup = false;
+    protected $externalName = '';
 
-    public function __construct($source, $dest, $mode = Volume::RW, $backup = false)
+    /**
+     * Volume constructor.
+     * @param $name
+     */
+    public function __construct($name)
     {
-        $this->setSource($source);
-        $this->setDest($dest);
-        $this->setBackup($backup);
-        $this->setMode($mode);
+        $this->name = $name;
     }
+
 
     /**
      * @return mixed
      */
-    public function getDest()
+    public function getName()
     {
-        return $this->dest;
+        return $this->name;
     }
 
     /**
-     * @param mixed $dest
+     * @param mixed $name
      */
-    public function setDest($dest)
+    public function setName($name)
     {
-        $this->dest = $dest;
+        $this->name = $name;
     }
 
     /**
-     * @return mixed
-     */
-    public function getSource()
-    {
-        return $this->source;
-    }
-
-    /**
-     * @param mixed $source
-     */
-    public function setSource($source)
-    {
-        $this->source = $source;
-    }
-
-    /**
-     * Is Relativ?
-     *
      * @return bool
      */
-    public function isRelativ() {
-        return (
-            $this->getSource() == '.' ||
-            substr($this->getSource(), 0, 2) == './'
-        );
+    public function isExternal(): bool
+    {
+        return $this->external;
     }
 
     /**
-     * @return int
+     * @param bool $external
      */
-    public function getMode()
+    public function setExternal(bool $external)
     {
-        return $this->mode;
+        $this->external = $external;
     }
 
     /**
-     * @param int $mode
+     * @return string
      */
-    public function setMode($mode)
+    public function getExternalName(): string
     {
-        $this->mode = $mode;
+        return $this->externalName;
     }
 
     /**
-     * @return boolean
+     * @param string $externalName
      */
-    public function isBackup()
+    public function setExternalName(string $externalName)
     {
-        return $this->backup;
+        $this->externalName = $externalName;
     }
 
     /**
-     * @param boolean $backup
+     * @return string
      */
-    public function setBackup($backup)
+    public function getDriver(): string
     {
-        $this->backup = $backup;
+        return $this->driver;
     }
 
+    /**
+     * @param string $driver
+     */
+    public function setDriver(string $driver)
+    {
+        $this->driver = $driver;
+    }
+
+    /**
+     * @return array
+     */
+    public function getDriverOpts(): array
+    {
+        return $this->driverOpts;
+    }
+
+    /**
+     * @param array $driverOpts
+     */
+    public function setDriverOpts(array $driverOpts)
+    {
+        $this->driverOpts = $driverOpts;
+    }
 
 }

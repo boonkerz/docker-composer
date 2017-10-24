@@ -1,5 +1,5 @@
 <?php
-namespace Docker\Composer;
+namespace Docker\Composer\Service;
 
 
 class Command

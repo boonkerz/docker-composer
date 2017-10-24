@@ -37,9 +37,9 @@ class VolumeTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('./.data/db', $volumes[0]->getSource());
         $this->assertEquals('/var/lib/mysql', $volumes[0]->getDest());
-        $this->assertEquals(Composer\Volume::RW, $volumes[0]->getMode());
+        $this->assertEquals(Composer\Service\Volume::RW, $volumes[0]->getMode());
 
-        $this->assertEquals(Composer\Volume::RO, $volumes[1]->getMode());
+        $this->assertEquals(Composer\Service\Volume::RO, $volumes[1]->getMode());
 
         $this->assertFalse($volumes[0]->isBackup());
 
@@ -57,12 +57,12 @@ class VolumeTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('./.data/ro', $volumes[1]->getSource());
         $this->assertEquals('/testro', $volumes[1]->getDest());
-        $this->assertEquals(Composer\Volume::RO, $volumes[1]->getMode());
+        $this->assertEquals(Composer\Service\Volume::RO, $volumes[1]->getMode());
         $this->assertFalse($volumes[1]->isBackup());
 
         $this->assertEquals('./.data/rw', $volumes[2]->getSource());
         $this->assertEquals('/testrw', $volumes[2]->getDest());
-        $this->assertEquals(Composer\Volume::RO, $volumes[2]->getMode());
+        $this->assertEquals(Composer\Service\Volume::RO, $volumes[2]->getMode());
         $this->assertTrue($volumes[2]->isBackup());
 
     }

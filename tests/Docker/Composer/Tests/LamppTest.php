@@ -11,7 +11,7 @@ namespace Docker\Composer\Tests;
 
 use Docker\Composer;
 
-class PortTest extends \PHPUnit_Framework_TestCase
+class LamppTest extends \PHPUnit_Framework_TestCase
 {
     public function testIfPortCorrectForWordpress() {
         $composer = new Composer(file_get_contents(__DIR__ . '/resources/lampp.yml'));
@@ -25,12 +25,5 @@ class PortTest extends \PHPUnit_Framework_TestCase
                 }
             }
         }
-
-
-
-
     }
-
-
-
 }

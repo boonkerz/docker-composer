@@ -6,7 +6,7 @@
  * Time: 19:13
  */
 
-namespace Docker\Composer;
+namespace Docker\Composer\Service;
 
 
 class EnvVar

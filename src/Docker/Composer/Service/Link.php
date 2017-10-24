@@ -6,7 +6,7 @@
  * Time: 19:15
  */
 
-namespace Docker\Composer;
+namespace Docker\Composer\Service;
 
 
 class Link

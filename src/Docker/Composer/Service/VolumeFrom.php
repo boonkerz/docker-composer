@@ -6,19 +6,25 @@
  * Time: 20:51
  */
 
-namespace Docker\Composer;
+namespace Docker\Composer\Service;
 
 
-class Port
+class VolumeFrom
 {
+    const READ_ONLY = 1;
+    const READ_WRITE = 2;
+
     protected $source;
 
     protected $dest;
 
-    public function __construct($source, $dest)
+    protected $mode;
+
+    public function __construct($source, $dest, $mode = self::READ_WRITE)
     {
-        $this->setSource($source);
-        $this->setDest($dest);
+        $this->source = $source;
+        $this->dest = $dest;
+        $this->mode = $mode;
     }
 
     /**
@@ -54,20 +60,19 @@ class Port
     }
 
     /**
-     * Is HTTP?
-     *
-     * @return bool
+     * @return int
      */
-    public function isHttp() {
-        return ($this->getDest() == '80');
+    public function getMode()
+    {
+        return $this->mode;
     }
 
     /**
-     * Is HTTPS?
-     *
-     * @return bool
+     * @param int $mode
      */
-    public function isHttps() {
-        return ($this->getDest() == '443');
+    public function setMode($mode)
+    {
+        $this->mode = $mode;
     }
+
 }
