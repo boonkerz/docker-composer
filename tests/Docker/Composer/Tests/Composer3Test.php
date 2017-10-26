@@ -66,6 +66,7 @@ class Composer3Test extends \PHPUnit_Framework_TestCase
         $this->assertCount(5, $composer->getServices());
 
         $service = $composer->getServices()[0];
-        var_dump($service);
+        $network = $service->getNetworks()[0];
+        $this->assertEquals('voteapp', $network->getName());
     }
 }

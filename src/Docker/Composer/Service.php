@@ -88,7 +88,6 @@ class Service
         $this->createCommands = new \ArrayIterator();
         $this->updateCommands = new \ArrayIterator();
         $this->backupCommands = new \ArrayIterator();
-        $this->networks = new \ArrayIterator();
     }
 
     /**
