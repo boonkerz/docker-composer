@@ -72,6 +72,16 @@ class Services implements Parser
             }
         }
 
+        if(isset($serviceArr['networks'])) {
+            foreach ($serviceArr['networks'] as $item) {
+                if(is_array($item)) {
+                    $service->addNetwork(new Service\Network(key($item)));
+                }else{
+                    $service->addNetwork(new Service\Network($item));
+                }
+            }
+        }
+
         if(isset($serviceArr['ports'])) {
             foreach ($serviceArr['ports'] as $item) {
                 if(strpos($item, "-") !== false) {

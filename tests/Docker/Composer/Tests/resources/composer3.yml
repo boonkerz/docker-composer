@@ -7,7 +7,15 @@ services:
     ports:
       - "6379"
     networks:
-      - voteapp
+      - voteapp:
+          aliases:
+            - alias1
+            - alias3
+      - testnetwork
+      - voteapp_test:
+          aliases:
+            - alias1_test
+            - alias3_test
     deploy:
       placement:
         constraints: [node.role == manager]

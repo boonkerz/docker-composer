@@ -1,6 +1,9 @@
 <?php
 namespace Docker;
 
+use Docker\Composer\Network;
+use Docker\Composer\Service;
+use Docker\Composer\Volume;
 use Docker\Parser\Networks;
 use Docker\Parser\Parser;
 use Docker\Parser\Services;
@@ -60,7 +63,7 @@ class Composer
     }
 
     /**
-     * @return array
+     * @return Service[]
      */
     public function getServices() : array
     {
@@ -68,7 +71,7 @@ class Composer
     }
 
     /**
-     * @return array
+     * @return Network[]
      */
     public function getNetworks(): array
     {
@@ -76,7 +79,7 @@ class Composer
     }
 
     /**
-     * @return array
+     * @return Volume[]
      */
     public function getVolumes(): array
     {

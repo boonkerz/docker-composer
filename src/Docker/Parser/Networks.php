@@ -17,6 +17,10 @@ class Networks implements Parser
 
     public function parse(array $tree): array
     {
+        if(!isset($tree['networks'])) {
+            return [];
+        }
+
         foreach($tree['networks'] as $name => $networkArr) {
             $this->parseNetworks($name, $networkArr);
         }

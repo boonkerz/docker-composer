@@ -18,6 +18,10 @@ class Volumes implements Parser
 
     public function parse(array $tree): array
     {
+        if(!isset($tree['volumes'])) {
+            return [];
+        }
+
         foreach($tree['volumes'] as $name => $volumeArr) {
             $this->parseVolumes($name, $volumeArr);
         }

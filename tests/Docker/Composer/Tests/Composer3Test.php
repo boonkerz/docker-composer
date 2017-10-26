@@ -59,4 +59,13 @@ class Composer3Test extends \PHPUnit_Framework_TestCase
         $this->assertEquals('test-volume', $volumes[1]->getExternalName());
         $this->assertTrue($volumes[1]->isExternal());
     }
+
+    public function testNetworksInServices() {
+        $composer = new Composer(file_get_contents(__DIR__ . '/resources/composer3full.yml'));
+
+        $this->assertCount(5, $composer->getServices());
+
+        $service = $composer->getServices()[0];
+        var_dump($service);
+    }
 }

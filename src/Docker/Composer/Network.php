@@ -13,7 +13,7 @@ class Network
 {
     protected $name;
 
-    protected $driver = '';
+    protected $driver = 'overlay';
 
     protected $driverOpts = [];
 

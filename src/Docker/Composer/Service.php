@@ -44,6 +44,11 @@ class Service
     protected $volumesFrom;
 
     /**
+     * @var \Docker\Composer\Service\Network[]
+     */
+    protected $networks;
+
+    /**
      * @var array
      */
     protected $links;
@@ -83,6 +88,7 @@ class Service
         $this->createCommands = new \ArrayIterator();
         $this->updateCommands = new \ArrayIterator();
         $this->backupCommands = new \ArrayIterator();
+        $this->networks = new \ArrayIterator();
     }
 
     /**
@@ -269,7 +275,7 @@ class Service
     }
 
     /**
-     * @return array
+     * @return \Docker\Composer\Service\Volume[]
      */
     public function getVolumes()
     {
@@ -362,5 +368,29 @@ class Service
     public function addBackupCommand($command)
     {
         $this->backupCommands->append($command);
+    }
+
+    /**
+     * @return Service\Network[]
+     */
+    public function getNetworks(): array
+    {
+        return $this->networks;
+    }
+
+    /**
+     * @param Service\Network[] $networks
+     */
+    public function setNetworks(array $networks)
+    {
+        $this->networks = $networks;
+    }
+
+    /**
+     * @param Service\Network $network
+     */
+    public function addNetwork(\Docker\Composer\Service\Network $network)
+    {
+        $this->networks[] = $network;
     }
 }
