@@ -2,6 +2,11 @@
 namespace Docker\Composer;
 
 
+use Docker\Composer\Service\Command;
+use Docker\Composer\Service\EnvVar;
+use Docker\Composer\Service\Link;
+use Docker\Composer\Service\Port;
+use Docker\Composer\Service\VolumeFrom;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 
@@ -179,7 +184,7 @@ class Service
     }
 
     /**
-     * @param Volume $volume
+     * @param \Docker\Composer\Service\Volume $volume
      */
     public function addVolume($volume)
     {

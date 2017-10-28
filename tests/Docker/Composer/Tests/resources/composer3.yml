@@ -25,7 +25,9 @@ services:
     volumes:
       - db-data:/var/lib/postgresql/data
     networks:
-      - voteapp
+      voteapp:
+        aliases:
+          - workers
     deploy:
       placement:
         constraints: [node.role == manager]

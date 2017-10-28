@@ -14,11 +14,16 @@ class Volume
     const RO = 1;
     const RW = 2;
 
+    const VOLUME = 'volume';
+    const BIND = 'bind';
+
     protected $source;
 
     protected $dest;
 
     protected $mode = Volume::RW;
+
+    protected $type = Volume::VOLUME;
 
     protected $backup = false;
 
@@ -104,6 +109,22 @@ class Volume
     public function setBackup($backup)
     {
         $this->backup = $backup;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     */
+    public function setType(string $type)
+    {
+        $this->type = $type;
     }
 
 
