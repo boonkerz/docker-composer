@@ -22,7 +22,7 @@ services:
     volumes:
       - "./.data/db:/var/lib/mysql"
       - "./.data/ro:/testro:ro"
-      - "./.data/rw:/testrw:ro:backup"
+      - "./.data/rw:/testrw:ro"
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: wordpress

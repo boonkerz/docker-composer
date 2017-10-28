@@ -22,6 +22,17 @@ class Services implements Parser
 
     private $services = [];
 
+    /** @var \Docker\Composer\Volume[] */
+    private $volumes = [];
+
+    private $networks = [];
+
+    public function __construct($volumes, $networks)
+    {
+        $this->volumes = $volumes;
+        $this->networks = $networks;
+    }
+
     public function parse(array $tree): array
     {
         foreach($tree['services'] as $name => $serviceArr) {
@@ -99,27 +110,34 @@ class Services implements Parser
 
         if(isset($serviceArr['volumes'])) {
             foreach ($serviceArr['volumes'] as $item) {
-                $volume = explode(':', $item);
-                if(count($volume) == 1) {
-                    $service->addVolume(new Volume($volume[0], $volume[0]));
-                    continue;
-                }elseif(count($volume) == 2) {
-                    $service->addVolume(new Volume($volume[0], $volume[1]));
-                    continue;
-                }
-
-                $backup = false;
-
-                if(isset($volume[3])) {
-                    if($volume[3] == 'backup') {
-                        $backup = true;
+                if(is_array($item)) {
+                    $volume = new Volume($item['source'], $item['target']);
+                    if($item['type'] == Volume::BIND) {
+                        $volume->setType(Volume::BIND);
                     }
-                }
-                if($volume[2] == 'ro') {
-                    $service->addVolume(new Volume($volume[0], $volume[1], Volume::RO, $backup));
+
+                    $service->addVolume($volume);
                     continue;
                 }
-                $service->addVolume(new Volume($volume[0], $volume[1], Volume::RW, $backup));
+
+                $item = explode(':', $item);
+                if(count($item) == 1) {
+                    $volume = new Volume($item[0], $item[0]);
+                }elseif(count($item) == 2) {
+                    $volume = new Volume($item[0], $item[1]);
+                }elseif(count($item) == 3) {
+                    $volume = new Volume($item[0], $item[1], $item[2]);
+                }
+
+                $result = array_filter($this->volumes, function($var) use ($volume) {
+                    return $var->getName() == $volume->getSource();
+                });
+
+                if(count($result) == 0) {
+                    $volume->setType(Volume::BIND);
+                }
+
+                $service->addVolume($volume);
                 continue;
             }
         }

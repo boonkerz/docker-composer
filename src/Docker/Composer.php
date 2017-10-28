@@ -45,11 +45,11 @@ class Composer
         $volumeParser = new Volumes();
         $this->volumes = $volumeParser->parse($this->tree);
 
-        $serviceParser = new Services();
-        $this->services = $serviceParser->parse($this->tree);
-
         $networksParser = new Networks();
         $this->networks = $networksParser->parse($this->tree);
+
+        $serviceParser = new Services($this->volumes, $this->networks);
+        $this->services = $serviceParser->parse($this->tree);
 
 
     }

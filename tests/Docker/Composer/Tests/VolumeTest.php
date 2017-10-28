@@ -58,12 +58,10 @@ class VolumeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('./.data/ro', $volumes[1]->getSource());
         $this->assertEquals('/testro', $volumes[1]->getDest());
         $this->assertEquals(Composer\Service\Volume::RO, $volumes[1]->getMode());
-        $this->assertFalse($volumes[1]->isBackup());
 
         $this->assertEquals('./.data/rw', $volumes[2]->getSource());
         $this->assertEquals('/testrw', $volumes[2]->getDest());
         $this->assertEquals(Composer\Service\Volume::RO, $volumes[2]->getMode());
-        $this->assertTrue($volumes[2]->isBackup());
 
     }
 

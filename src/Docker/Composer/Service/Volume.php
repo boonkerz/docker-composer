@@ -11,8 +11,8 @@ namespace Docker\Composer\Service;
 
 class Volume
 {
-    const RO = 1;
-    const RW = 2;
+    const RO = 'ro';
+    const RW = 'rw';
 
     const VOLUME = 'volume';
     const BIND = 'bind';
