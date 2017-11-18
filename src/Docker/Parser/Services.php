@@ -85,9 +85,9 @@ class Services implements Parser
 
         if(isset($serviceArr['networks'])) {
 
-            foreach ($serviceArr['networks'] as $key => $item) {
+            foreach ($serviceArr['networks'] as $item) {
                 if(is_array($item)) {
-                    $service->addNetwork(new Service\Network($key));
+                    $service->addNetwork(new Service\Network(key($item)));
                 }else{
                     $service->addNetwork(new Service\Network($item));
                 }

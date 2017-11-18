@@ -66,8 +66,27 @@ class Composer3Test extends \PHPUnit_Framework_TestCase
         $this->assertCount(5, $composer->getServices());
 
         $service = $composer->getServices()[0];
+
+        $this->assertCount(1, $service->getNetworks());
+
         $network = $service->getNetworks()[0];
         $this->assertEquals('voteapp', $network->getName());
+
+    }
+
+    public function testMoreNetworksInServices() {
+        $composer = new Composer(file_get_contents(__DIR__ . '/resources/composer3.yml'));
+
+        $this->assertCount(5, $composer->getServices());
+
+        $service = $composer->getServices()[0];
+
+        $this->assertCount(3, $service->getNetworks());
+
+        $network = $service->getNetworks()[0];
+        $this->assertEquals('voteapp', $network->getName());
+        $network = $service->getNetworks()[1];
+        $this->assertEquals('testnetwork', $network->getName());
 
     }
 }
