@@ -397,4 +397,16 @@ class Service
     {
         $this->networks[] = $network;
     }
+
+    public function isHttpPortExposed()
+    {
+        /** @var Port $port */
+        foreach($this->getPorts() as $port) {
+            if($port->isHttp()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

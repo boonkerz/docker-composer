@@ -39,6 +39,11 @@ class PortTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($env[0]->isHttp());
 
+        $this->assertTrue($service->isHttpPortExposed());
+
+        $this->assertFalse($composer->getServices()[0]->isHttpPortExposed());
+
+
     }
 
     public function testIfPortCorrectForDb() {

@@ -19,5 +19,5 @@
         "test": "vendor/bin/phpunit",
         "test-ci": "vendor/bin/phpunit --coverage-clover build/coverage.xml"
     },
-    "version": "1.1.5"
+    "version": "1.1.6"
 }
