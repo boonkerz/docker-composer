@@ -10,8 +10,9 @@ namespace Docker\Composer\Tests;
 
 
 use Docker\Composer;
+use PHPUnit\Framework\TestCase;
 
-class Composer3Test extends \PHPUnit_Framework_TestCase
+class Composer3Test extends TestCase
 {
     public function testIfImageReturnIsCorrect() {
         $composer = new Composer(file_get_contents(__DIR__ . '/resources/composer3.yml'));

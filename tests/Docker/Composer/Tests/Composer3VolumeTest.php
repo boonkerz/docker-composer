@@ -10,8 +10,9 @@ namespace Docker\Composer\Tests;
 
 
 use Docker\Composer;
+use PHPUnit\Framework\TestCase;
 
-class Composer3VolumeTest extends \PHPUnit_Framework_TestCase
+class Composer3VolumeTest extends TestCase
 {
     public function testIfVolumeReadsArrayType() {
         $composer = new Composer(file_get_contents(__DIR__ . '/resources/composer3volumes.yml'));

@@ -10,8 +10,9 @@ namespace Docker\Composer\Tests;
 
 use Docker\Composer;
 use MJS\TopSort\ElementNotFoundException;
+use PHPUnit\Framework\TestCase;
 
-class DependencyTest extends \PHPUnit_Framework_TestCase
+class DependencyTest extends TestCase
 {
     public function testIfDependencyResolverWorks() {
         $composer = new Composer(file_get_contents(__DIR__ . '/resources/file1.yml'));

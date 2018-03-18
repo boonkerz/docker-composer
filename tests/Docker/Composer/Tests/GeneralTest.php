@@ -10,8 +10,9 @@ namespace Docker\Composer\Tests;
 
 
 use Docker\Composer;
+use PHPUnit\Framework\TestCase;
 
-class GeneralTest extends \PHPUnit_Framework_TestCase
+class GeneralTest extends TestCase
 {
     public function testIfVersionCorrectReturn() {
         $composer = new Composer(file_get_contents(__DIR__ . '/resources/file1.yml'));

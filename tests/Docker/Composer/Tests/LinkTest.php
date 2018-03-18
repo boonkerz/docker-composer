@@ -10,8 +10,9 @@ namespace Docker\Composer\Tests;
 
 
 use Docker\Composer;
+use PHPUnit\Framework\TestCase;
 
-class LinkTest extends \PHPUnit_Framework_TestCase
+class LinkTest extends TestCase
 {
     public function testIfLinkCorrectForWordpress() {
         $composer = new Composer(file_get_contents(__DIR__ . '/resources/file1.yml'));

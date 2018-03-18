@@ -10,8 +10,9 @@ namespace Docker\Composer\Tests;
 
 
 use Docker\Composer;
+use PHPUnit\Framework\TestCase;
 
-class VolumeTest extends \PHPUnit_Framework_TestCase
+class VolumeTest extends TestCase
 {
     public function testIfVolumeCorrectForWordpress() {
         $composer = new Composer(file_get_contents(__DIR__ . '/resources/file1.yml'));

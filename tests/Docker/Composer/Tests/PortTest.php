@@ -10,8 +10,9 @@ namespace Docker\Composer\Tests;
 
 
 use Docker\Composer;
+use PHPUnit\Framework\TestCase;
 
-class PortTest extends \PHPUnit_Framework_TestCase
+class PortTest extends TestCase
 {
     public function testIfPortCorrectForWordpress() {
         $composer = new Composer(file_get_contents(__DIR__ . '/resources/file1.yml'));
