@@ -15,6 +15,7 @@ use Docker\Composer\Service\Port;
 use Docker\Composer\Service;
 use Docker\Composer\Service\Volume;
 use Docker\Composer\Service\VolumeFrom;
+use Docker\Parser\Service\Deploy;
 use MJS\TopSort\Implementations\GroupedStringSort;
 
 class Services implements Parser
@@ -48,14 +49,14 @@ class Services implements Parser
     {
         $service = new Service(strtolower($name));
 
+        if(isset($serviceArr['deploy'])) {
+            $service->setDeploy((new Deploy())->parse($serviceArr['deploy']));
+        }
+
         if(isset($serviceArr['depends_on'])) {
             foreach ($serviceArr['depends_on'] as $item) {
                 $service->addEdge($item);
             }
-        }
-
-        if(isset($serviceArr['restart']) && $serviceArr['restart'] == 'always') {
-            $service->setRestart(Service::RESTART_ALWAYS);
         }
 
         if(isset($serviceArr['image'])) {

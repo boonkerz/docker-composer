@@ -3,6 +3,7 @@ namespace Docker\Composer;
 
 
 use Docker\Composer\Service\Command;
+use Docker\Composer\Service\Deploy;
 use Docker\Composer\Service\EnvVar;
 use Docker\Composer\Service\Link;
 use Docker\Composer\Service\Port;
@@ -12,9 +13,6 @@ use Symfony\Component\Yaml\Yaml;
 
 class Service
 {
-
-    const RESTART_NONE = 0;
-    const RESTART_ALWAYS = 1;
 
     /** @var string */
     protected $name;
@@ -78,8 +76,10 @@ class Service
      */
     protected $backupCommands;
 
-    /** @var Int */
-    protected $restart = self::RESTART_NONE;
+    /**
+     * @var Deploy
+     */
+    protected $deploy;
 
     public function __construct($name)
     {
@@ -93,6 +93,7 @@ class Service
         $this->createCommands = new \ArrayIterator();
         $this->updateCommands = new \ArrayIterator();
         $this->backupCommands = new \ArrayIterator();
+        $this->deploy = new Service\Deploy();
     }
 
     /**
@@ -263,22 +264,6 @@ class Service
     }
 
     /**
-     * @return Int
-     */
-    public function getRestart()
-    {
-        return $this->restart;
-    }
-
-    /**
-     * @param Int $restart
-     */
-    public function setRestart($restart)
-    {
-        $this->restart = $restart;
-    }
-
-    /**
      * @return \Docker\Composer\Service\Volume[]
      */
     public function getVolumes()
@@ -408,5 +393,21 @@ class Service
         }
 
         return false;
+    }
+
+    /**
+     * @return Deploy
+     */
+    public function getDeploy(): Deploy
+    {
+        return $this->deploy;
+    }
+
+    /**
+     * @param Deploy $deploy
+     */
+    public function setDeploy(Deploy $deploy)
+    {
+        $this->deploy = $deploy;
     }
 }

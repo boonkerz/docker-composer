@@ -18,6 +18,7 @@ class Composer
 
     protected $version;
 
+    /** @var Service[] $services */
     protected $services = [];
 
     protected $networks = [];
@@ -84,5 +85,14 @@ class Composer
     public function getVolumes(): array
     {
         return $this->volumes;
+    }
+
+    public function getServiceByName($name)
+    {
+        foreach($this->services as $service) {
+            if($service->getName() === $name) {
+                return $service;
+            }
+        }
     }
 }

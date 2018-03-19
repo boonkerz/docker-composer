@@ -26,15 +26,6 @@ class WordpressTest extends TestCase
         $this->assertEquals("latest", $service[1]->getTag());
     }
 
-    public function testIfServiceIsCorrectRestart() {
-        $composer = new Composer(file_get_contents(__DIR__ . '/resources/file1.yml'));
-
-        /** @var Composer\Service $service */
-        $service = $composer->getServices()[1];
-
-        $this->assertEquals(Composer\Service::RESTART_ALWAYS, $service->getRestart());
-    }
-
     public function testIfServiceReturnCorrectMemValue() {
         $composer = new Composer(file_get_contents(__DIR__ . '/resources/file1.yml'));
 

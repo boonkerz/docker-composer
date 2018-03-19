@@ -12,6 +12,6 @@ namespace Docker\Parser;
 interface Parser
 {
 
-    public function parse(array $tree) : array;
+    public function parse(array $tree);
 
 }
