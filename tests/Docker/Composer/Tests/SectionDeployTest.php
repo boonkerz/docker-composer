@@ -44,13 +44,13 @@ class SectionDeployTest extends TestCase
 
         $this->assertEquals(Composer\Service\Deploy\RestartPolicy::CONDITION_ON_FAILURE, $service->getDeploy()->getRestartPolicy()->getCondition(), "Condition wrong");
 
-        $this->assertEquals('11s', $service->getDeploy()->getRestartPolicy()->getDelay(), "Delay wrong");
+        $this->assertEquals(11, $service->getDeploy()->getRestartPolicy()->getDelay(), "Delay wrong");
 
         $service = $composer->getServiceByName('dbcluster');
 
         $this->assertEquals(Composer\Service\Deploy\RestartPolicy::CONDITION_ANY, $service->getDeploy()->getRestartPolicy()->getCondition(), "Condition wrong");
 
-        $this->assertEquals('0', $service->getDeploy()->getRestartPolicy()->getDelay(), "Delay wrong");
+        $this->assertEquals(0, $service->getDeploy()->getRestartPolicy()->getDelay(), "Delay wrong");
 
     }
 

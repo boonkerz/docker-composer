@@ -17,11 +17,11 @@ class RestartPolicy
 
     private $condition = 'any';
 
-    private $delay = '0';
+    private $delay = 0;
 
     private $maxAttempts = 10;
 
-    private $window = '120s';
+    private $window = 120;
 
     /**
      * @return string
@@ -40,38 +40,6 @@ class RestartPolicy
     }
 
     /**
-     * @return string
-     */
-    public function getDelay(): string
-    {
-        return $this->delay;
-    }
-
-    /**
-     * @param string $delay
-     */
-    public function setDelay(string $delay)
-    {
-        $this->delay = $delay;
-    }
-
-    /**
-     * @return string
-     */
-    public function getWindow(): string
-    {
-        return $this->window;
-    }
-
-    /**
-     * @param string $window
-     */
-    public function setWindow(string $window)
-    {
-        $this->window = $window;
-    }
-
-    /**
      * @return int
      */
     public function getMaxAttempts(): int
@@ -85,5 +53,37 @@ class RestartPolicy
     public function setMaxAttempts(int $maxAttempts)
     {
         $this->maxAttempts = $maxAttempts;
+    }
+
+    /**
+     * @return int
+     */
+    public function getWindow(): int
+    {
+        return $this->window;
+    }
+
+    /**
+     * @param int $window
+     */
+    public function setWindow(int $window)
+    {
+        $this->window = $window;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDelay(): int
+    {
+        return $this->delay;
+    }
+
+    /**
+     * @param int $delay
+     */
+    public function setDelay(int $delay)
+    {
+        $this->delay = $delay;
     }
 }

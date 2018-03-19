@@ -28,7 +28,7 @@ class RestartPolicy implements Parser
         }
 
         if(isset($tree['delay'])) {
-            $restartPolicy->setDelay($tree['delay']);
+            $restartPolicy->setDelay((int)preg_replace("/[^0-9,.]/", "", $tree['delay']));
         }
 
         if(isset($tree['max_attempts'])) {
@@ -36,7 +36,7 @@ class RestartPolicy implements Parser
         }
 
         if(isset($tree['window'])) {
-            $restartPolicy->setWindow($tree['window']);
+            $restartPolicy->setWindow((int)preg_replace("/[^0-9,.]/", "", $tree['window']));
         }
 
         return $restartPolicy;
