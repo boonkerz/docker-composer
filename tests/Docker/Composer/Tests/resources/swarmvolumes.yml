@@ -1,0 +1,59 @@
+version: "3"
+services:
+  wordpress:
+    image: wordpress:php7.1-apache
+    ports:
+      - 8080:80
+    networks:
+      - common
+    depends_on:
+      - dbcluster
+    volumes:
+      - www:/var/www/html/wp-content
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+    environment:
+      WORDPRESS_DB_HOST: "dbcluster"
+      WORDPRESS_DB_NAME: "wordpress"
+      WORDPRESS_DB_USER: "wp"
+      WORDPRESS_DB_PASSWORD: "changemetoo"
+  dbcluster:
+    image: mariadb
+    networks:
+      - common
+    volumes:
+    - db:/var/lib/mysql
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+    environment:
+      MYSQL_ROOT_PASSWORD: changeme
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wp
+      MYSQL_PASSWORD: changemetoo
+
+networks:
+  common:
+
+volumes:
+  db:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=freenas,rw
+      device: ":/mnt/daten/docker"
+  www:
+    driver: swarm
+    driver_opts:
+      type: nfs
+      o: addr=freenas,rw
+      device: ":/mnt/daten/docker"

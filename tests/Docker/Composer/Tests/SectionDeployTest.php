@@ -18,7 +18,7 @@ class SectionDeployTest extends TestCase
         $composer = new Composer(file_get_contents(__DIR__ . '/resources/wordpress.yml'));
 
         /** @var Composer\Service $service */
-        $service = $composer->getServiceByName('wordpress');
+        $service = $composer->getService('wordpress');
 
         $this->assertEquals(2, $service->getDeploy()->getReplicas(), "Replicas wrong");
     }
@@ -27,11 +27,11 @@ class SectionDeployTest extends TestCase
         $composer = new Composer(file_get_contents(__DIR__ . '/resources/wordpress.yml'));
 
         /** @var Composer\Service $service */
-        $service = $composer->getServiceByName('wordpress');
+        $service = $composer->getService('wordpress');
 
         $this->assertEquals(Composer\Service\Deploy::MODE_REPLICATED, $service->getDeploy()->getMode(), "Mode wrong");
 
-        $service = $composer->getServiceByName('dbcluster');
+        $service = $composer->getService('dbcluster');
 
         $this->assertEquals(Composer\Service\Deploy::MODE_GLOBAL, $service->getDeploy()->getMode(), "Mode wrong");
     }
@@ -40,13 +40,13 @@ class SectionDeployTest extends TestCase
         $composer = new Composer(file_get_contents(__DIR__ . '/resources/wordpress.yml'));
 
         /** @var Composer\Service $service */
-        $service = $composer->getServiceByName('wordpress');
+        $service = $composer->getService('wordpress');
 
         $this->assertEquals(Composer\Service\Deploy\RestartPolicy::CONDITION_ON_FAILURE, $service->getDeploy()->getRestartPolicy()->getCondition(), "Condition wrong");
 
         $this->assertEquals(11, $service->getDeploy()->getRestartPolicy()->getDelay(), "Delay wrong");
 
-        $service = $composer->getServiceByName('dbcluster');
+        $service = $composer->getService('dbcluster');
 
         $this->assertEquals(Composer\Service\Deploy\RestartPolicy::CONDITION_ANY, $service->getDeploy()->getRestartPolicy()->getCondition(), "Condition wrong");
 
@@ -58,12 +58,12 @@ class SectionDeployTest extends TestCase
         $composer = new Composer(file_get_contents(__DIR__ . '/resources/wordpress.yml'));
 
         /** @var Composer\Service $service */
-        $service = $composer->getServiceByName('dbcluster');
+        $service = $composer->getService('dbcluster');
 
         $this->assertEquals(2, count($service->getDeploy()->getPlacement()->getConstraints()), "Constraints Count wrong");
         $this->assertEquals(1, count($service->getDeploy()->getPlacement()->getPreferences()), "Preferences Count wrong");
 
-        $service = $composer->getServiceByName('wordpress');
+        $service = $composer->getService('wordpress');
 
         $this->assertEquals(0, count($service->getDeploy()->getPlacement()->getConstraints()), "wordpress does not have constraints");
         $this->assertEquals(0, count($service->getDeploy()->getPlacement()->getPreferences()), "wordpress does not have constraints");

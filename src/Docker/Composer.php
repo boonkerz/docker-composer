@@ -87,11 +87,24 @@ class Composer
         return $this->volumes;
     }
 
-    public function getServiceByName($name)
+    public function getService($name)
     {
         foreach($this->services as $service) {
             if($service->getName() === $name) {
                 return $service;
+            }
+        }
+    }
+
+    /**
+     * @param $name
+     * @return Volume
+     */
+    public function getVolume($name)
+    {
+        foreach($this->volumes as $volume) {
+            if($volume->getName() === $name) {
+                return $volume;
             }
         }
     }

@@ -44,6 +44,14 @@ class Volumes implements Parser
             $temp->setExternalName($volumeArr['external']['name']);
         }
 
+        if(isset($volumeArr['driver_opts']) && is_array($volumeArr['driver_opts'])) {
+            $tempVol = [];
+            foreach($volumeArr['driver_opts'] as $key => $var) {
+                $tempVol[$key] = $var;
+            }
+            $temp->setDriverOpts($tempVol);
+        }
+
         $this->volumes[] = $temp;
 
     }

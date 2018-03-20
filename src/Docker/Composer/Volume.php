@@ -13,7 +13,7 @@ class Volume
 {
     protected $name;
 
-    protected $driver = '';
+    protected $driver = 'local';
 
     protected $driverOpts = [];
 
