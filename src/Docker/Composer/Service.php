@@ -26,6 +26,10 @@ class Service
     /** @var string */
     protected $memory = '100m';
 
+
+    /** @var string */
+    protected $command = null;
+
     /**
      * @var array
      */
@@ -409,5 +413,21 @@ class Service
     public function setDeploy(Deploy $deploy)
     {
         $this->deploy = $deploy;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCommand(): string
+    {
+        return $this->command;
+    }
+
+    /**
+     * @param string $command
+     */
+    public function setCommand(string $command)
+    {
+        $this->command = $command;
     }
 }

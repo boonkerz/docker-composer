@@ -53,6 +53,10 @@ class Services implements Parser
             $service->setDeploy((new Deploy())->parse($serviceArr['deploy']));
         }
 
+        if(isset($serviceArr['command'])) {
+            $service->setCommand($serviceArr['command']);
+        }
+
         if(isset($serviceArr['depends_on'])) {
             foreach ($serviceArr['depends_on'] as $item) {
                 $service->addEdge($item);
