@@ -63,8 +63,6 @@ class SectionDeployTest extends TestCase
         $this->assertEquals(2, count($service->getDeploy()->getPlacement()->getConstraints()), "Constraints Count wrong");
         $this->assertEquals(1, count($service->getDeploy()->getPlacement()->getPreferences()), "Preferences Count wrong");
 
-        var_dump($service->getDeploy()->getPlacement()->getConstraints());
-
         $service = $composer->getService('wordpress');
 
         $this->assertEquals(0, count($service->getDeploy()->getPlacement()->getConstraints()), "wordpress does not have constraints");
