@@ -27,7 +27,7 @@ class Service
     protected $memory = '100m';
 
 
-    /** @var string */
+    /** @var array */
     protected $command = "";
 
     /**
@@ -416,17 +416,17 @@ class Service
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function getCommand(): string
+    public function getCommand(): array
     {
         return $this->command;
     }
 
     /**
-     * @param string $command
+     * @param array $command
      */
-    public function setCommand(string $command)
+    public function setCommand(array $command)
     {
         $this->command = $command;
     }

@@ -55,9 +55,9 @@ class Services implements Parser
 
         if(isset($serviceArr['command'])) {
             if(is_array($serviceArr['command'])) {
-                $service->setCommand(implode(" ", $serviceArr['command']));
-            }else{
                 $service->setCommand($serviceArr['command']);
+            }else{
+                $service->setCommand([$serviceArr['command']]);
             }
         }
 

@@ -25,7 +25,7 @@ class CommandTest extends TestCase
 
     public function testCommandIsEqual()
     {
-        $this->assertEquals("zammad-init", $this->composer->getService('zammad-init')->getCommand());
+        $this->assertEquals(["zammad-init"], $this->composer->getService('zammad-init')->getCommand());
     }
 
     protected function tearDown()
