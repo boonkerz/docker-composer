@@ -28,7 +28,7 @@ class Service
 
 
     /** @var array */
-    protected $command = "";
+    protected $command = [];
 
     /**
      * @var array
