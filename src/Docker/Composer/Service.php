@@ -97,6 +97,7 @@ class Service
         $this->createCommands = new \ArrayIterator();
         $this->updateCommands = new \ArrayIterator();
         $this->backupCommands = new \ArrayIterator();
+        $this->networks = new \ArrayIterator();
         $this->deploy = new Service\Deploy();
     }
 
@@ -366,7 +367,7 @@ class Service
     /**
      * @return Service\Network[]
      */
-    public function getNetworks(): array
+    public function getNetworks(): iterable
     {
         return $this->networks;
     }

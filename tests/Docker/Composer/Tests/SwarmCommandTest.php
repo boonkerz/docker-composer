@@ -27,10 +27,8 @@ class SwarmCommandTest extends TestCase
     {
 
         $service  = $this->composer->getService('sftp');
+        $this->assertEquals(["foo:pass:1001"], $service->getCommand());
 
-        $this->assertEquals("foo:pass:1001", $service->getCommand());
-
-        var_dump($service->getPorts());
     }
 
     protected function tearDown()
